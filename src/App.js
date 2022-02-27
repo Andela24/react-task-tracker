@@ -57,8 +57,9 @@ setTasks([...tasks, newTask]) //displaying tasks that are already there plus the
 
   return (
       <div className="container">
-        <Header title={'Task Tracker'} onAdd={() => setShowAddTask(!showAddTask)} />
-        
+        <Header title={'Task Tracker'} onAdd={() => setShowAddTask(!showAddTask)} 
+        showAdd={showAddTask}
+        />
         {showAddTask ?
         <AddTask onAdd={addTask}/> :
         null }
