@@ -5,6 +5,7 @@ import AddTask from './components/AddTask'
 
 
 function App() {
+  const [showAddTask, setShowAddTask]= useState(false)
   const [tasks, setTasks] = useState([
     {
         id: 1,
@@ -25,6 +26,18 @@ function App() {
     reminder: false,
     },
 ])
+
+//submit task
+function addTask (task) {
+// console.log(task)
+const id= Math.floor(Math.random() * 10000) + 1 //using math.floor which will round down, then math.random itmes 10k just to get any random num back
+//we're using id since we're not dealing with backend
+const newTask = {id, ...task} //creating a new object with that id and copy the existing task
+setTasks([...tasks, newTask]) //displaying tasks that are already there plus the new ones
+}
+
+
+
 // if the task.id is not equal to id => i want to show
 //then delete that task
   function deleteTask(id) {
@@ -44,8 +57,12 @@ function App() {
 
   return (
       <div className="container">
-        <Header title="Task Tracker" />
-        <AddTask />
+        <Header title={'Task Tracker'} onAdd={() => setShowAddTask(!showAddTask)} />
+        
+        {showAddTask ?
+        <AddTask onAdd={addTask}/> :
+        null }
+
         {tasks.length > 0 ? (
     <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> )
          :
