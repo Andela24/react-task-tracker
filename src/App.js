@@ -30,6 +30,10 @@ setTasks([...tasks, newTask]) //displaying tasks that are already there plus the
 // if the task.id is not equal to id => i want to show
 //then delete that task
   function deleteTask(id) {
+    fetch(`http://localhost:5000/tasks/${id}`, {
+    method: "DELETE"
+    })
+
    setTasks(tasks.filter((task) => task.id !== id))
   }
 
