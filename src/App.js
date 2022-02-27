@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Header from "./components/Header"
 import Tasks from "./components/Tasks"
 import AddTask from './components/AddTask'
@@ -7,6 +7,13 @@ import AddTask from './components/AddTask'
 function App() {
   const [showAddTask, setShowAddTask]= useState(false)
   const [tasks, setTasks] = useState([])
+
+  //fetch data from db.json local
+  useEffect(() => {
+    fetch('http://localhost:5000/tasks')
+    .then(res => res.json())
+    .then(data => setTasks(data))
+  }, [])
     
 
 //submit task
