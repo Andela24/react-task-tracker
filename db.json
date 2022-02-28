@@ -15,13 +15,13 @@
     {
       "text": "Laundry",
       "day": "Today",
-      "reminder": false,
+      "reminder": true,
       "id": 3
     },
     {
       "text": "Grocery",
       "day": "Monday",
-      "reminder": false,
+      "reminder": true,
       "id": 4
     }
   ]

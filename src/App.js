@@ -1,8 +1,9 @@
 import {useState, useEffect} from 'react'
 import Header from "./components/Header"
+import Footer from './components/Footer'
 import Tasks from "./components/Tasks"
 import AddTask from './components/AddTask'
-import Footer from './components/Footer'
+
 
 
 function App() {
@@ -81,6 +82,7 @@ setTasks([...tasks, data])
   // or else(:) will be no change so print just task.
 
   return (
+   
       <div className="container">
         <Header title={'Task Tracker'} onAdd={() => setShowAddTask(!showAddTask)} 
         showAdd={showAddTask}
@@ -94,9 +96,10 @@ setTasks([...tasks, data])
          :
         'No task to show'
       }
-      <Footer />
+        <Footer />
     
       </div>
+    
     );
   }
 
