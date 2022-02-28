@@ -13,7 +13,16 @@
       "reminder": "true"
     },
     {
+      "text": "Laundry",
+      "day": "Today",
+      "reminder": false,
       "id": 3
+    },
+    {
+      "text": "Grocery",
+      "day": "Monday",
+      "reminder": false,
+      "id": 4
     }
   ]
 }

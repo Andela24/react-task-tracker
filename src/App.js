@@ -15,6 +15,14 @@ function App() {
     .then(res => res.json())
     .then(data => setTasks(data))
   }, [])
+
+  //fetch single task to be able to update toggle
+  const fetchTask = async (id) => {
+    const res = await fetch(`http://localhost:5000/tasks/${id}`)
+    
+    const data = await res.json()
+    return data
+    }
     
 
 //submit-add task
@@ -22,20 +30,19 @@ const addTask = async (task) => {
 const res = await fetch('http://localhost:5000/tasks', {  //add data/task to server
   method: "POST",
   headers: {
-    "Content-typet": "application/json",
+    "Content-type": "application/json",
   },
   body:  JSON.stringify(task), //turning from JS object to json string
 })
 const data = await res.json()
 setTasks([...tasks, data])
-
-
-
-// console.log(task)
-const id= Math.floor(Math.random() * 10000) + 1 
-const newTask = {id, ...task} //creating a new object with that id and copy the existing task
-setTasks([...tasks, newTask]) //displaying tasks that are already there plus the new ones
 }
+
+//this part was adding task to the DOM/UI not actual server
+// const id= Math.floor(Math.random() * 10000) + 1 
+// const newTask = {id, ...task} //creating a new object with that id and copy the existing task
+// setTasks([...tasks, newTask]) //displaying tasks that are already there plus the new ones
+// }
 
 
 
@@ -46,13 +53,26 @@ setTasks([...tasks, newTask]) //displaying tasks that are already there plus the
     method: "DELETE"
     })
 
-   setTasks(tasks.filter((task) => task.id !== id))
+   setTasks(tasks.filter((task) => task.id !== id)) // if the task.id is not equal to id => i want to show
   }
 
   //toggle reminder from true to false or oposite
-  function toggleReminder(id) {
+  const toggleReminder= async(id) => {
+    const taskToToggle = await fetchTask(id)
+    const updatedTask = {...taskToToggle,
+    reminder: !taskToToggle.reminder }
+
+    const res = await fetch(`http://localhost:5000/tasks/${id}`,{
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(updatedTask)
+    })
+    const data = await res.json()
+
     setTasks(tasks.map(task => task.id === id 
-    ? {...task, reminder: !task.reminder} : task))
+    ? {...task, reminder: data.reminder} : task))
   }
   //we map through and for each we'll all it task => task.id 
   //so if the task.id that were in current iteration is equal to the id that is passed in
