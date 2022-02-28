@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 import Header from "./components/Header"
 import Tasks from "./components/Tasks"
 import AddTask from './components/AddTask'
+import { FaCreativeCommonsShare } from 'react-icons/fa'
 
 
 function App() {
@@ -16,11 +17,22 @@ function App() {
   }, [])
     
 
-//submit task
-function addTask (task) {
+//submit-add task
+const addTask = async (task) => {
+const res = await fetch('http://localhost:5000/tasks', {  //add data/task to server
+  method: "POST",
+  headers: {
+    "Content-typet": "application/json",
+  },
+  body:  JSON.stringify(task), //turning from JS object to json string
+})
+const data = await res.json()
+setTasks([...tasks, data])
+
+
+
 // console.log(task)
-const id= Math.floor(Math.random() * 10000) + 1 //using math.floor which will round down, then math.random itmes 10k just to get any random num back
-//we're using id since we're not dealing with backend
+const id= Math.floor(Math.random() * 10000) + 1 
 const newTask = {id, ...task} //creating a new object with that id and copy the existing task
 setTasks([...tasks, newTask]) //displaying tasks that are already there plus the new ones
 }
