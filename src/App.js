@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import Header from "./components/Header"
 import Tasks from "./components/Tasks"
 import AddTask from './components/AddTask'
-import { FaCreativeCommonsShare } from 'react-icons/fa'
+import Footer from './components/Footer'
 
 
 function App() {
@@ -63,8 +63,8 @@ setTasks([...tasks, data])
     reminder: !taskToToggle.reminder }
 
     const res = await fetch(`http://localhost:5000/tasks/${id}`,{
-      method: "PUT",
-      headers: {
+      method: "PUT", //using put for update
+      headers: {  
         "Content-type": "application/json",
       },
       body: JSON.stringify(updatedTask)
@@ -94,6 +94,7 @@ setTasks([...tasks, data])
          :
         'No task to show'
       }
+      <Footer />
     
       </div>
     );
